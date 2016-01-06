@@ -61,6 +61,7 @@ conf/local_secret
 conf/monitoring/*
 !conf/monitoring/*.example
 conf/nessus/remotescan.nessus
+conf/traffic_shaping.conf
 conf/networks.conf
 conf/radiusd/acct.conf
 conf/radiusd/auth.conf
