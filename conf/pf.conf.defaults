@@ -591,6 +591,16 @@ routes=enabled
 #
 # location of the routes binary. only necessary to change if you are not running the rpmed version.
 routes_binary=/sbin/ip
+#
+# services.tc
+#
+# Should tc be managed by PacketFence?
+tc=enabled
+#
+# services.tc_binary
+#
+# location of the yc binary. only necessary to change if you are not running the rpmed version.
+tc_binary=/usr/sbin/tc
 
 [snmp_traps]
 #
