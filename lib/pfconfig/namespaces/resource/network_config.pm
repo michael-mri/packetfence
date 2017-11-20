@@ -39,15 +39,20 @@ sub build {
         foreach my $interface (@{$self->{interfaces}{'internal_nets'} // [] }) {
             my $ipe = $interface->tag("vip") || $interface->tag("ip");
             my $net_addr = NetAddr::IP->new($ipe,$interface->mask());
+            my %interface;
+            $interface{'ip'} = $ipe;
+            $interface{'mask'} = $interface->mask();
+            $interface{'int'} = $interface->tag("int");
+            $interface{'cidr'} = $interface->desc();
             if ( defined($self->{networks}{$network}{'next_hop'})) {
                 my $ip = new NetAddr::IP::Lite clean_ip($self->{networks}{$network}{'next_hop'});
                 if ($net_addr->contains($ip)) {
-                    $ConfigNetwork{$network}{'interface'} = $interface;
+                    $ConfigNetwork{$network}{'interface'} = \%interface;
                 }
             } else {
                 my $ip = new NetAddr::IP::Lite clean_ip($self->{networks}{$network}{'gateway'});
                 if ($net_addr->contains($ip)) {
-                    $ConfigNetwork{$network}{'interface'} = $interface;
+                    $ConfigNetwork{$network}{'interface'} = \%interface;
                 }
             }
         }
