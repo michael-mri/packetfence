@@ -864,7 +864,6 @@ sub node_modify {
     my ( $mac, %data ) = @_;
     my $logger = get_logger();
 
-
     # validation
     $mac = clean_mac($mac);
     if ( !valid_mac($mac) ) {
