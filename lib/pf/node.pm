@@ -1430,6 +1430,8 @@ sub fingerbank_info {
         return $info;
     }
 
+    $info->{device_name} = $node_info->{device_type};
+
     my $device_info = {};
     my $cache_key = 'fingerbank_info::DeviceHierarchy-'.$node_info->{device_type};
     eval {
