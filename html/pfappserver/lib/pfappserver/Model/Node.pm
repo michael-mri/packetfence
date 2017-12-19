@@ -39,6 +39,7 @@ use pf::config::util;
 use pf::violation;
 use pf::SwitchFactory;
 use pf::Connection;
+use pf::fingerbank;
 
 =head1 METHODS
 
@@ -462,6 +463,20 @@ sub reevaluate {
     unless(reevaluate_access($mac, "admin_modify")){
         $status = $STATUS::INTERNAL_SERVER_ERROR;
         $status_msg = "The access couldn't be reevaluated.";
+    }
+
+    return ($status, $status_msg);
+}
+
+sub refresh_fingerbank_device {
+    my ($self, $mac) = @_;
+
+    my $logger = get_logger();
+    my ($status, $status_msg) = ($STATUS::OK);
+
+    unless(pf::fingerbank::process($mac, $TRUE)){
+        $status = $STATUS::INTERNAL_SERVER_ERROR;
+        $status_msg = "Couldn't refresh device profiling through Fingerbank";
     }
 
     return ($status, $status_msg);
